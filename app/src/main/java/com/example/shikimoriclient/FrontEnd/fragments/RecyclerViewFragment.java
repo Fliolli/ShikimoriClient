@@ -313,6 +313,7 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
     public void update(SearchFilter searchFilter) {
         progressBar.show();
         filter = searchFilter;
+        filter.getParams().put("page", "1");
         notFoundView.setVisibility(View.INVISIBLE);
         initializeAdapter();
         pageNumber = 1;
@@ -322,6 +323,7 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
         totalItemCount = 0;
         previousTotal = 0;
         viewThreshold = 20;
+
     }
 }
 

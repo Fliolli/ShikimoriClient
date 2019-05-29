@@ -100,7 +100,6 @@ public class RanobeOrMangaDetails extends Fragment {
         } else {
             desctiptionText.setText("Нет описания");
         }
-        //Picasso.get().load(Api.baseURL + manga.getImage().getOriginal()).into(animeImage);
     }
 
     private void setCompConfiguration() {

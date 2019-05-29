@@ -50,8 +50,6 @@ import static com.example.shikimoriclient.UserInfoHandler.USER_ICON_URL;
 import static com.example.shikimoriclient.UserInfoHandler.USER_ID;
 import static com.example.shikimoriclient.UserInfoHandler.USER_NICKNAME;
 
-//TODO: Checking tokens
-//TODO: Icon into NavigationView
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

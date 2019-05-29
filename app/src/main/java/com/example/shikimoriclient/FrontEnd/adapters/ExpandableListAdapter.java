@@ -49,7 +49,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return expandedListPosition;
     }
 
-    //TODO + - icon not text
     @SuppressLint({"InflateParams", "SetTextI18n"})
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,

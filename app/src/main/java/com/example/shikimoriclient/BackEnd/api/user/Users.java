@@ -37,6 +37,7 @@ public interface Users {
     @POST("/api/v2/user_rates")
     Call<Void> addUserRate(@Body HashMap<String, Object> body, @Header("Authorization") String authorization);
 
+    @Headers("Users-Agent: ShikiClient")
     @DELETE("/api/v2/user_rates/{id}")
     Call<Void> deleteUserRate(@Path("id") int id, @Header("Authorization") String authorization);
 }

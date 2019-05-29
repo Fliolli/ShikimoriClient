@@ -78,9 +78,11 @@ public class SearchFilter {
             if (page != null) {
                 params.put("page", page);
             }
+            params.put("limit", "20");
             buildParamsByFilter();
+        } else {
+            params.put("limit", "20");
         }
-        params.put("limit", "20");
         return params;
     }
 

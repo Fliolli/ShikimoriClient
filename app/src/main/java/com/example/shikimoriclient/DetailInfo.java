@@ -151,7 +151,7 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.isChecked()) {
                 if (animeType) {
-                    int id=((Anime) itemSimple).getUserRate().getId();
+                    int id = ((Anime) itemSimple).getUserRate().getId();
                     Users api = Api.getUser();
                     Call<Void> call = api.deleteUserRate(id, UserInfoHandler.ACCESS_TOKEN);
                     call.enqueue(new Callback<Void>() {
