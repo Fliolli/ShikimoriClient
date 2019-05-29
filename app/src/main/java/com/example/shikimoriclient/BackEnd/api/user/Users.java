@@ -1,22 +1,21 @@
 package com.example.shikimoriclient.BackEnd.api.user;
 
-import com.example.shikimoriclient.BackEnd.dao.UserRate;
 import com.example.shikimoriclient.BackEnd.dao.user.User;
 import com.example.shikimoriclient.BackEnd.dao.user.UserCredentials;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface Users {
     String AUTHENTICATION_URL = "https://shikimori.one/oauth/authorize?client_id=0634026dff61432521366af450848abaf9c19d732d83d533f0303f53ff517465&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code";
@@ -37,4 +36,7 @@ public interface Users {
     @Headers("Content-Type: application/json")
     @POST("/api/v2/user_rates")
     Call<Void> addUserRate(@Body HashMap<String, Object> body, @Header("Authorization") String authorization);
+
+    @DELETE("/api/v2/user_rates/{id}")
+    Call<Void> deleteUserRate(@Path("id") int id, @Header("Authorization") String authorization);
 }

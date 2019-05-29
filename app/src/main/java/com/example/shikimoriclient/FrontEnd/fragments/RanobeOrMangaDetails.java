@@ -72,10 +72,6 @@ public class RanobeOrMangaDetails extends Fragment {
         setListeners();
     }
 
-    private void setLayout() {
-
-    }
-
     @SuppressLint("SetTextI18n")
     private void fillComp() {
         nameText.setText(manga.getName());

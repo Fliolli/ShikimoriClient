@@ -150,7 +150,36 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
         floatingActionButton.setOnClickListener(v -> popupMenu.show());
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.isChecked()) {
-                //delet
+                if (animeType) {
+                    int id=((Anime) itemSimple).getUserRate().getId();
+                    Users api = Api.getUser();
+                    Call<Void> call = api.deleteUserRate(id, UserInfoHandler.ACCESS_TOKEN);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
+                    });
+                } else {
+                    Users api = Api.getUser();
+                    Call<Void> call = api.deleteUserRate(((Manga) itemSimple).getUserRate().getId(), UserInfoHandler.ACCESS_TOKEN);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
+                    });
+                }
                 item.setChecked(false);
             } else {
                 UserRate userRate = new UserRate();
