@@ -3,25 +3,26 @@ package com.example.shikimoriclient.BackEnd.filter;
 import com.example.shikimoriclient.BackEnd.data.Searchable;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class SearchFilter {
-    private HashMap<String, String> params;
+    private LinkedHashMap<String, String> params;
     private FilterAdapter filterAdapter;
     private Searchable searchFilterData;
 
     public SearchFilter(FilterAdapter filterAdapter, Searchable searchFilterData) {
-        params = new HashMap<>();
+        params = new LinkedHashMap<>();
         this.filterAdapter = filterAdapter;
         this.searchFilterData = searchFilterData;
     }
 
     public SearchFilter() {
-        params = new HashMap<>();
+        params = new LinkedHashMap<>();
     }
 
     public SearchFilter(HashMap<String, String> params) {
-        this.params = new HashMap<>();
+        this.params = new LinkedHashMap<>();
         this.params.putAll(params);
     }
 

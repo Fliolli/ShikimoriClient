@@ -208,12 +208,10 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.e("Cool", Integer.toString(response.code()));
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e("Cool", "111111111");
                     }
                 });
                 item.setChecked(true);
