@@ -52,7 +52,6 @@ import static com.example.shikimoriclient.UserInfoHandler.USER_NICKNAME;
 
 //TODO: Checking tokens
 //TODO: Icon into NavigationView
-//TODO: infoScreen
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity
     private SearchFilter animeFilter;
     private SearchFilter mangaFilter;
     private SearchFilter ranobeFilter;
-    private PullRefreshLayout pullRefreshLayout;
+
 
     public static boolean loggedIn;
 
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity
         fabSearch = findViewById(R.id.fabSearch);
         fabBack = findViewById(R.id.fabBack);
         viewPager = findViewById(R.id.viewPager);
-        pullRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         searchDialog = new SearchDialog(this, viewPager);
@@ -180,7 +178,6 @@ public class MainActivity extends AppCompatActivity
             loggedIn = true;
             navigationView.getMenu().getItem(0).setVisible(true);
             navigationView.getMenu().getItem(0).setTitle(USER_NICKNAME);
-            // navigationView.getMenu().getItem(0).setIcon();
             navigationView.getMenu().getItem(4).setTitle("Выйти");
         } else {
             loggedIn = false;
@@ -271,13 +268,6 @@ public class MainActivity extends AppCompatActivity
             }
             fabMenu.collapse();
         });
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // start refresh
-            }
-        });
-        //pullRefreshLayout.setRefreshing(false);
     }
 
     private void showFABMenu() {

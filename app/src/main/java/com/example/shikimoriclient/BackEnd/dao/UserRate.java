@@ -2,7 +2,9 @@ package com.example.shikimoriclient.BackEnd.dao;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserRate {
+import java.io.Serializable;
+
+public class UserRate implements Serializable {
     private int id;
     @SerializedName("user_id")
     private int userId;
@@ -23,6 +25,62 @@ public class UserRate {
     private String createdAt;
     @SerializedName("updated_at")
     private String updatedAt;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setTargetId(int targetId) {
+        this.targetId = targetId;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setEpisodes(int episodes) {
+        this.episodes = episodes;
+    }
+
+    public void setChapters(int chapters) {
+        this.chapters = chapters;
+    }
+
+    public void setVolumes(int volumes) {
+        this.volumes = volumes;
+    }
+
+    public void setTextHtml(String textHtml) {
+        this.textHtml = textHtml;
+    }
+
+    public void setRewatches(int rewatches) {
+        this.rewatches = rewatches;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public int getId() {
         return id;

@@ -8,6 +8,7 @@
     //////////////////////////////////////////////////////////////////////////
     <string name="nav_header_title">Энциклопедия аниме и манги</string>
     <string name="not_found">По вашему запросу ничего не найдено</string>
+    <string name="smth_wrong">Упс что то пошло не так</string>
     <string name="checklist">Мои списки</string>
     <string name="exit">Выход</string>
     <string name="enter">Вход</string>

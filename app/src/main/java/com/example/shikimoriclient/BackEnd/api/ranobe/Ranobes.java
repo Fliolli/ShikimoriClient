@@ -18,5 +18,5 @@ public interface Ranobes {
     Call<List<RanobeSimple>> getList(@QueryMap Map<String, String> params, @Header("Authorization") String authorization);
 
     @GET("/api/ranobe/{id}")
-    Call<Ranobe> getRanobe(@Path("id") int id);
+    Call<Ranobe> getRanobe(@Path("id") int id, @Header("Authorization") String authorization);
 }

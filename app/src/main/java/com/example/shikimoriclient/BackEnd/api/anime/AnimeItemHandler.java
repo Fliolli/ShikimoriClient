@@ -7,17 +7,26 @@ import android.util.Log;
 import com.example.shikimoriclient.BackEnd.api.Api;
 import com.example.shikimoriclient.BackEnd.api.ItemHandler;
 import com.example.shikimoriclient.BackEnd.dao.anime.Anime;
+import com.example.shikimoriclient.BackEnd.dao.manga.Manga;
 import com.example.shikimoriclient.DetailInfo;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.shikimoriclient.MainActivity.loggedIn;
+import static com.example.shikimoriclient.UserInfoHandler.ACCESS_TOKEN;
+
 public class AnimeItemHandler implements ItemHandler {
     @Override
     public void findById(int id, Context context) {
         Animes api = Api.getAnimes();
-        Call<Anime> call = api.getAnime(id);
+        Call<Anime> call;
+        if (!loggedIn) {
+            call = api.getAnime(id,null);
+        } else {
+            call = api.getAnime(id, ACCESS_TOKEN);
+        }
         call.enqueue(new Callback<Anime>() {
             @Override
             public void onResponse(Call<Anime> call, Response<Anime> response) {

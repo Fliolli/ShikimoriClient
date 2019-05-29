@@ -18,5 +18,5 @@ public interface Mangas {
     Call<List<MangaSimple>> getList(@QueryMap Map<String, String> params, @Header("Authorization") String authorization);
 
     @GET("/api/mangas/{id}")
-    Call<Manga> getManga(@Path("id") int id);
+    Call<Manga> getManga(@Path("id") int id, @Header("Authorization") String authorization);
 }

@@ -1,9 +1,16 @@
 package com.example.shikimoriclient.BackEnd.api.user;
 
+import com.example.shikimoriclient.BackEnd.dao.UserRate;
 import com.example.shikimoriclient.BackEnd.dao.user.User;
 import com.example.shikimoriclient.BackEnd.dao.user.UserCredentials;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,4 +32,9 @@ public interface Users {
 
     @GET("/api/users/whoami")
     Call<User> getUser(@Header("Authorization") String authorization);
+
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/v2/user_rates")
+    Call<Void> addUserRate(@Body HashMap<String, Object> body, @Header("Authorization") String authorization);
 }

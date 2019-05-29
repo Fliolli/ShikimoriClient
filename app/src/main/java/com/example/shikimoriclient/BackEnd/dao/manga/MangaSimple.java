@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 public class MangaSimple  extends ItemSimple implements Serializable {
 
-    private String kind;
+    private MangaKind kind;
     private int volumes;
     private int chapters;
 
-    public String getKind() {
+    public MangaKind getKind() {
         return kind;
     }
 

@@ -5,22 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/watch_list"
+            android:id="@+id/completed"
             android:title="Просмотрено" />
         <item
-            android:id="@+id/throw_out"
+            android:id="@+id/dropped"
             android:title="Брошено" />
         <item
-            android:id="@+id/go_in_stack"
+            android:id="@+id/on_hold"
             android:title="Отложено" />
         <item
             android:id="@+id/plans"
             android:title="Запланировано" />
         <item
-            android:id="@+id/rewatch"
+            android:id="@+id/rewatching"
             android:title="Пересматриваю" />
         <item
-            android:id="@+id/watch"
+            android:id="@+id/watching"
             android:title="Смотрю" />
 
     </group>

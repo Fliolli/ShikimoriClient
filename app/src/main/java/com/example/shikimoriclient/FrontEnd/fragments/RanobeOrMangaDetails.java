@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso;
 public class RanobeOrMangaDetails extends Fragment {
     private TextView nameText;
     private TextView rusNameText;
-    private TextView authorsText;
     private TextView scoreText;
     private TextView typeText;
     private TextView tomsCountText;
@@ -67,7 +66,7 @@ public class RanobeOrMangaDetails extends Fragment {
         statusText = view.findViewById(R.id.mangaStatus);
         genresText = view.findViewById(R.id.mangaGenres);
         desctiptionText = view.findViewById(R.id.mangaDescription);
-       // mangaImage = view.findViewById(R.id.mangaImage);
+        mangaImage = getLayoutInflater().inflate(R.layout.detail_info, null).findViewById(R.id.backdrop);
         setCompConfiguration();
         fillComp();
         setListeners();
@@ -80,16 +79,31 @@ public class RanobeOrMangaDetails extends Fragment {
     @SuppressLint("SetTextI18n")
     private void fillComp() {
         nameText.setText(manga.getName());
-        typeText.setText(manga.getKind());
-        tomsCountText.setText(Integer.toString(manga.getVolumes()));
+        rusNameText.setText(manga.getRussian());
+        scoreText.setText(manga.getScore());
+        typeText.setText(manga.getKind().toString());
+        if (manga.getVolumes() != 0) {
+            tomsCountText.setText(Integer.toString(manga.getVolumes()));
+        } else {
+            tomsCountText.setText("-");
+        }
+        if (manga.getChapters() != 0) {
+            chaptersCountText.setText(Integer.toString(manga.getChapters()));
+        } else {
+            chaptersCountText.setText("-");
+        }
         statusText.setText(manga.getStatus().toString());
         StringBuilder genres = new StringBuilder();
         for (int i = 0; i < manga.getGenres().length; i++) {
-            genres.append(manga.getGenres()[i].getRussian()).append(",");
+            genres.append(manga.getGenres()[i].getRussian()).append(", ");
         }
-        genres.deleteCharAt(manga.getGenres().length - 1);
+        genres.delete(genres.length() - 2, genres.length());
         genresText.setText(genres.toString());
-        desctiptionText.setText(manga.getDescription().replaceAll("\\[.+]", ""));
+        if (manga.getDescription() != null) {
+            desctiptionText.setText(manga.getDescription().replaceAll("\\[.+]", ""));
+        } else {
+            desctiptionText.setText("Нет описания");
+        }
         //Picasso.get().load(Api.baseURL + manga.getImage().getOriginal()).into(animeImage);
     }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.example.shikimoriclient.BackEnd.api.Api;
 import com.example.shikimoriclient.BackEnd.api.anime.Animes;
 import com.example.shikimoriclient.BackEnd.api.manga.Mangas;
@@ -24,6 +25,7 @@ import com.example.shikimoriclient.R;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,6 +44,7 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
     private int type;
     private AVLoadingIndicatorView progressBar;
     private TextView notFoundView;
+    private PullRefreshLayout pullRefreshLayout;
 
     private static Bundle instanceBundle = new Bundle();
 
@@ -92,6 +95,8 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
         recyclerView = (view.findViewById(R.id.recyclerView));
         progressBar = view.findViewById(R.id.avi);
         notFoundView = view.findViewById(R.id.notFoundText);
+        pullRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
         layoutManager = new GridLayoutManager(getContext(), 2);
         filter = new SearchFilter();
         progressBar.show();
@@ -117,13 +122,18 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
                         recyclerView.setAdapter(recyclerAdapter);
                         progressBar.hide();
                         if (recyclerAdapter.getItemCount() == 0) {
+                            notFoundView.setText(R.string.not_found);
                             notFoundView.setVisibility(View.VISIBLE);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<AnimeSimple>> call, Throwable t) {
-
+                        progressBar.hide();
+                        recyclerAdapter = new RecyclerAdapter(Collections.emptyList());
+                        recyclerView.setAdapter(recyclerAdapter);
+                        notFoundView.setText(R.string.smth_wrong);
+                        notFoundView.setVisibility(View.VISIBLE);
                     }
                 });
                 break;
@@ -143,13 +153,18 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
                         recyclerView.setAdapter(recyclerAdapter);
                         progressBar.hide();
                         if (recyclerAdapter.getItemCount() == 0) {
+                            notFoundView.setText(R.string.not_found);
                             notFoundView.setVisibility(View.VISIBLE);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<MangaSimple>> call, Throwable t) {
-
+                        recyclerAdapter = new RecyclerAdapter(Collections.emptyList());
+                        recyclerView.setAdapter(recyclerAdapter);
+                        progressBar.hide();
+                        notFoundView.setText(R.string.smth_wrong);
+                        notFoundView.setVisibility(View.VISIBLE);
                     }
                 });
                 break;
@@ -169,13 +184,18 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
                         recyclerView.setAdapter(recyclerAdapter);
                         progressBar.hide();
                         if (recyclerAdapter.getItemCount() == 0) {
+                            notFoundView.setText(R.string.not_found);
                             notFoundView.setVisibility(View.VISIBLE);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<RanobeSimple>> call, Throwable t) {
-
+                        recyclerAdapter = new RecyclerAdapter(Collections.emptyList());
+                        recyclerView.setAdapter(recyclerAdapter);
+                        progressBar.hide();
+                        notFoundView.setText(R.string.smth_wrong);
+                        notFoundView.setVisibility(View.VISIBLE);
                     }
                 });
                 break;
@@ -211,6 +231,10 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
                     }
                 }
             }
+        });
+        pullRefreshLayout.setOnRefreshListener(() -> {
+            update(filter);
+            pullRefreshLayout.setRefreshing(false);
         });
     }
 
@@ -287,6 +311,7 @@ public class RecyclerViewFragment extends android.support.v4.app.Fragment implem
 
     @Override
     public void update(SearchFilter searchFilter) {
+        progressBar.show();
         filter = searchFilter;
         notFoundView.setVisibility(View.INVISIBLE);
         initializeAdapter();
