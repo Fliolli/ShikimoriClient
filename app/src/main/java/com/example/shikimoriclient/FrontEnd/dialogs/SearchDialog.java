@@ -24,7 +24,7 @@ import com.example.shikimoriclient.BackEnd.dao.manga.MangaSimple;
 import com.example.shikimoriclient.BackEnd.dao.ranobe.RanobeSimple;
 import com.example.shikimoriclient.BackEnd.filter.SearchFilter;
 import com.example.shikimoriclient.R;
-import com.example.shikimoriclient.UserInfoHandler;
+import com.example.shikimoriclient.BackEnd.data.UserInfoHandler;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Collections;

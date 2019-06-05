@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class AnimeDetails extends Fragment {
     private TextView genresText;
     private TextView desctiptionText;
     private ImageView animeImage;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     private static Bundle instanceBundle = new Bundle();
 
@@ -68,7 +70,8 @@ public class AnimeDetails extends Fragment {
         ratingText = view.findViewById(R.id.animeRating);
         genresText = view.findViewById(R.id.animeGenres);
         desctiptionText = view.findViewById(R.id.animeDescription);
-        animeImage = getLayoutInflater().inflate(R.layout.detail_info, null).findViewById(R.id.backdrop);
+        collapsingToolbarLayout = getLayoutInflater().inflate(R.layout.detail_info, null).findViewById(R.id.collapsing_toolbar);
+        animeImage = collapsingToolbarLayout.findViewById(R.id.backdrop);
         setCompConfiguration();
         fillComp();
         setListeners();

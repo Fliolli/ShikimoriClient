@@ -33,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.shikimoriclient.MainActivity.loggedIn;
-import static com.example.shikimoriclient.UserInfoHandler.ACCESS_TOKEN;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.ACCESS_TOKEN;
 import static com.github.florent37.materialviewpager.MaterialViewPagerHelper.registerRecyclerView;
 
 public class RecyclerViewFragment extends android.support.v4.app.Fragment implements Updatable {

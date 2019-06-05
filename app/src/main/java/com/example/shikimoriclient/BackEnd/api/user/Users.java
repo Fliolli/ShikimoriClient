@@ -1,5 +1,6 @@
 package com.example.shikimoriclient.BackEnd.api.user;
 
+import com.example.shikimoriclient.BackEnd.dao.UserRate;
 import com.example.shikimoriclient.BackEnd.dao.user.User;
 import com.example.shikimoriclient.BackEnd.dao.user.UserCredentials;
 
@@ -35,7 +36,7 @@ public interface Users {
 
     @Headers("Content-Type: application/json")
     @POST("/api/v2/user_rates")
-    Call<Void> addUserRate(@Body HashMap<String, Object> body, @Header("Authorization") String authorization);
+    Call<UserRate> addUserRate(@Body HashMap<String, Object> body, @Header("Authorization") String authorization);
 
     @Headers("Users-Agent: ShikiClient")
     @DELETE("/api/v2/user_rates/{id}")

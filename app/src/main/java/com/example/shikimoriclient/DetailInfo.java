@@ -1,17 +1,16 @@
 package com.example.shikimoriclient;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v4.app.FragmentManager;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.shikimoriclient.BackEnd.api.Api;
 import com.example.shikimoriclient.BackEnd.api.user.Users;
@@ -19,12 +18,10 @@ import com.example.shikimoriclient.BackEnd.dao.ItemSimple;
 import com.example.shikimoriclient.BackEnd.dao.UserRate;
 import com.example.shikimoriclient.BackEnd.dao.anime.Anime;
 import com.example.shikimoriclient.BackEnd.dao.manga.Manga;
+import com.example.shikimoriclient.BackEnd.data.UserInfoHandler;
 import com.example.shikimoriclient.FrontEnd.fragments.AnimeDetails;
 import com.example.shikimoriclient.FrontEnd.fragments.RanobeOrMangaDetails;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import java.util.Collections;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -34,7 +31,6 @@ import retrofit2.Response;
 
 public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private Toolbar toolbar;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
     private FloatingActionButton floatingActionButton;
     private FragmentManager myFragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -55,7 +51,6 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
         setSupportActionBar(toolbar);
         floatingActionButton = findViewById(R.id.menuButton);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         itemSimple = (ItemSimple) getIntent().getSerializableExtra("Item");
         animeType = itemSimple instanceof Anime;
         popupMenu = new PopupMenu(this, floatingActionButton);
@@ -147,7 +142,13 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
     }
 
     private void setListeners() {
-        floatingActionButton.setOnClickListener(v -> popupMenu.show());
+        floatingActionButton.setOnClickListener(v -> {
+            if (MainActivity.loggedIn) {
+                popupMenu.show();
+            } else {
+                Toast.makeText(this, "Войдите в личный кабинет для управления списками", Toast.LENGTH_LONG).show();
+            }
+        });
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.isChecked()) {
                 if (animeType) {
@@ -157,7 +158,10 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
                     call.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-
+                            Toast.makeText(DetailInfo.this, "Удалено из списка", Toast.LENGTH_LONG).show();
+                            if (item.isChecked()) {
+                                item.setChecked(false);
+                            }
                         }
 
                         @Override
@@ -171,16 +175,18 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
                     call.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-
+                            Toast.makeText(DetailInfo.this, "Удалено из списка", Toast.LENGTH_LONG).show();
+                            if (item.isChecked()) {
+                                item.setChecked(false);
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-
                         }
                     });
                 }
-                item.setChecked(false);
+                return false;
             } else {
                 UserRate userRate = new UserRate();
                 userRate.setTargetId(itemSimple.getId());
@@ -197,7 +203,7 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
                             userRate.setStatus("on_hold");
                             break;
                         case R.id.plans:
-                            userRate.setStatus("plans");
+                            userRate.setStatus("planned");
                             break;
                         case R.id.rewatching:
                             userRate.setStatus("rewatching");
@@ -219,7 +225,7 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
                             userRate.setStatus("on_hold");
                             break;
                         case R.id.plans:
-                            userRate.setStatus("plans");
+                            userRate.setStatus("planned");
                             break;
                         case R.id.rewatching:
                             userRate.setStatus("rewatching");
@@ -233,19 +239,29 @@ public class DetailInfo extends AppCompatActivity implements PopupMenu.OnMenuIte
                 Users api = Api.getUser();
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("user_rate", userRate);
-                Call<Void> call = api.addUserRate(map, UserInfoHandler.ACCESS_TOKEN);
-                call.enqueue(new Callback<Void>() {
+                Call<UserRate> call = api.addUserRate(map, UserInfoHandler.ACCESS_TOKEN);
+                call.enqueue(new Callback<UserRate>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<UserRate> call, Response<UserRate> response) {
+                        if (response.body() != null) {
+                            if (animeType) {
+                                ((Anime) itemSimple).setUserRate(response.body());
+                            } else {
+                                ((Manga) itemSimple).setUserRate(response.body());
+                            }
+                            item.setChecked(true);
+                            Toast.makeText(DetailInfo.this, "Добавлено в список", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(DetailInfo.this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<UserRate> call, Throwable t) {
                     }
                 });
-                item.setChecked(true);
             }
-            return true;
+            return false;
         });
     }
 

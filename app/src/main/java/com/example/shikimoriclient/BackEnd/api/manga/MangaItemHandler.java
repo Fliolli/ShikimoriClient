@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import com.example.shikimoriclient.BackEnd.api.Api;
 import com.example.shikimoriclient.BackEnd.api.ItemHandler;
-import com.example.shikimoriclient.BackEnd.dao.anime.Anime;
 import com.example.shikimoriclient.BackEnd.dao.manga.Manga;
 import com.example.shikimoriclient.DetailInfo;
 
@@ -14,7 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.shikimoriclient.MainActivity.loggedIn;
-import static com.example.shikimoriclient.UserInfoHandler.ACCESS_TOKEN;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.ACCESS_TOKEN;
 
 public class MangaItemHandler implements ItemHandler {
 

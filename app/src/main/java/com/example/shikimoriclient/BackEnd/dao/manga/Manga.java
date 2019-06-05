@@ -121,4 +121,84 @@ public class Manga extends MangaSimple implements Serializable {
     public Genre[] getGenres() {
         return genres;
     }
+
+    public void setEnglish(String[] english) {
+        this.english = english;
+    }
+
+    public void setJapanese(String[] japanese) {
+        this.japanese = japanese;
+    }
+
+    public void setSynonyms(String[] synonyms) {
+        this.synonyms = synonyms;
+    }
+
+    public void setLicenseNameRu(String licenseNameRu) {
+        this.licenseNameRu = licenseNameRu;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public void setGenres(Genre[] genres) {
+        this.genres = genres;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDescriptionHtml(String descriptionHtml) {
+        this.descriptionHtml = descriptionHtml;
+    }
+
+    public void setDescriptionSource(String descriptionSource) {
+        this.descriptionSource = descriptionSource;
+    }
+
+    public void setFranchise(String franchise) {
+        this.franchise = franchise;
+    }
+
+    public void setFavoured(boolean favoured) {
+        this.favoured = favoured;
+    }
+
+    public void setAnons(boolean anons) {
+        this.anons = anons;
+    }
+
+    public void setOngoing(boolean ongoing) {
+        this.ongoing = ongoing;
+    }
+
+    public void setThread_id(int thread_id) {
+        this.thread_id = thread_id;
+    }
+
+    public void setTopic_id(int topic_id) {
+        this.topic_id = topic_id;
+    }
+
+    public void setMyanimelist_id(int myanimelist_id) {
+        this.myanimelist_id = myanimelist_id;
+    }
+
+    public void setRatesScoresStats(ScoreRate[] ratesScoresStats) {
+        this.ratesScoresStats = ratesScoresStats;
+    }
+
+    public void setRatesStatusesStats(StatusRate[] ratesStatusesStats) {
+        this.ratesStatusesStats = ratesStatusesStats;
+    }
+
+    public void setUserRate(UserRate userRate) {
+        this.userRate = userRate;
+    }
+
+    public void setPublishers(Publisher[] publishers) {
+        this.publishers = publishers;
+    }
 }

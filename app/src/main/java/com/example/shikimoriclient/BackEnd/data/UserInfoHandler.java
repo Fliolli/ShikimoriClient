@@ -1,4 +1,4 @@
-package com.example.shikimoriclient;
+package com.example.shikimoriclient.BackEnd.data;
 
 public class UserInfoHandler {
     public static String USER_ID;

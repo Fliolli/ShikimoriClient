@@ -1,7 +1,6 @@
 package com.example.shikimoriclient;
 
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.baoyz.widget.PullRefreshLayout;
 import com.example.shikimoriclient.BackEnd.data.ExpandableListAnimeData;
 import com.example.shikimoriclient.BackEnd.data.ExpandableListMangaData;
 import com.example.shikimoriclient.BackEnd.data.ExpandableListRanobeData;
@@ -42,13 +40,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.shikimoriclient.BackEnd.util.Util.updateRecycleView;
-import static com.example.shikimoriclient.UserInfoHandler.ACCESS_TOKEN;
-import static com.example.shikimoriclient.UserInfoHandler.CREATED_AT;
-import static com.example.shikimoriclient.UserInfoHandler.EXPIRES_IN;
-import static com.example.shikimoriclient.UserInfoHandler.REFRESH_TOKEN;
-import static com.example.shikimoriclient.UserInfoHandler.USER_ICON_URL;
-import static com.example.shikimoriclient.UserInfoHandler.USER_ID;
-import static com.example.shikimoriclient.UserInfoHandler.USER_NICKNAME;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.ACCESS_TOKEN;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.CREATED_AT;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.EXPIRES_IN;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.REFRESH_TOKEN;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.USER_ICON_URL;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.USER_ID;
+import static com.example.shikimoriclient.BackEnd.data.UserInfoHandler.USER_NICKNAME;
 
 
 public class MainActivity extends AppCompatActivity
@@ -177,6 +175,7 @@ public class MainActivity extends AppCompatActivity
             navigationView.getMenu().getItem(0).setVisible(true);
             navigationView.getMenu().getItem(0).setTitle(USER_NICKNAME);
             navigationView.getMenu().getItem(4).setTitle("Выйти");
+            Toast.makeText(this, "Вы вошли в личный кабинет", Toast.LENGTH_LONG).show();
         } else {
             loggedIn = false;
             navigationView.getMenu().getItem(0).setVisible(false);
@@ -300,10 +299,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.enter_exit) {
             if (!loggedIn) {
                 sigInDialog.show();
-                updateTabs();
+
             } else {
                 File file = new File(getFilesDir(), "userInfo");
-                file.delete();
+                if (file.delete()) {
+                    Toast.makeText(this, "Вы вышли из личного кабинета", Toast.LENGTH_LONG).show();
+                }
                 updateTabs();
                 ACCESS_TOKEN = null;
             }
